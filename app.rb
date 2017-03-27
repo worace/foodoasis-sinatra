@@ -2,7 +2,8 @@ require 'sinatra/base'
 require 'json'
 require 'pg'
 
-DB = PG.connect(dbname: 'foodoasis_gis')
+DB_URL = ENV['HEROKU_POSTGRESQL_BLACK_URL'] || "postgres://localhost/foodoasis_gis"
+DB = PG.connect(DB_URL)
 
 class FoodOasis < Sinatra::Base
   def nearby_locations(lat, lon, radius = 3500)
