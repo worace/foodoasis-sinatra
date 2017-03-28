@@ -14,6 +14,10 @@ class FoodOasis < Sinatra::Base
     DB.exec(query)
   end
 
+  get '/' do
+    redirect "/nearby?latitude=34.0522&longitude=-118.2437"
+  end
+
   get '/health' do
     content_type :json
     {status: "OK"}.to_json
