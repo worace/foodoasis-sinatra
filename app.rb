@@ -1,4 +1,5 @@
 require 'sinatra/base'
+require 'sinatra/cross_origin'
 require 'json'
 require 'pg'
 
@@ -6,7 +7,13 @@ DB_URL = ENV['HEROKU_POSTGRESQL_BLACK_URL'] || "postgres://localhost/foodoasis_g
 DB = PG.connect(DB_URL)
 
 class FoodOasis < Sinatra::Base
-  def nearby_locations(lat, lon, radius = 3500)
+  register Sinatra::CrossOrigin
+
+  configure do
+    enable :cross_origin
+  end
+
+  def nearby_locations(lat, lon, radius = 4500)
     lat = lat.to_f
     lon = lon.to_f
     radius = radius.to_i
