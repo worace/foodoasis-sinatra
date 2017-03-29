@@ -1,4 +1,5 @@
 create extension postgis;
+create extension "uuid-ossp";
 
 create table locations(
 name varchar,

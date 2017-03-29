@@ -11,12 +11,18 @@ psql -d $DB_NAME \
      -p $DB_PORT \
      -f ./data/schema.sql
 
-ruby data/combine_datasets.rb | \
+ruby data/combine_datasets.rb  | \
     psql -d $DB_NAME \
          -h $DB_HOST \
          -U $DB_USER \
          -p $DB_PORT \
          -c "COPY locations FROM STDIN DELIMITER ',' CSV HEADER;"
+
+psql -d $DB_NAME \
+     -h $DB_HOST \
+     -U $DB_USER \
+     -p $DB_PORT \
+     -c "ALTER TABLE locations ADD COLUMN id uuid DEFAULT uuid_generate_v4();"
 
 psql -d $DB_NAME \
      -h $DB_HOST \
