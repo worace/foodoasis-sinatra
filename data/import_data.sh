@@ -9,6 +9,12 @@ psql -d $DB_NAME \
      -h $DB_HOST \
      -U $DB_USER \
      -p $DB_PORT \
+     -c "DROP TABLE IF EXISTS locations;"
+
+psql -d $DB_NAME \
+     -h $DB_HOST \
+     -U $DB_USER \
+     -p $DB_PORT \
      -f ./data/schema.sql
 
 ruby data/combine_datasets.rb  | \

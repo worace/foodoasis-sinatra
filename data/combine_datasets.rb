@@ -26,8 +26,6 @@ combined = data.flat_map do |location_type, rows|
   end
 end
 
-common_keys = ["id"] + common_keys
-
 CSV do |csv|
   csv << common_keys
   combined.each do |row|
